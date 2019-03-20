@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${oneMovie.getTitle()}"></title>
+</head>
+<body>
+   <div style="text-align: center;">
+        <h1 th:text="${oneMovie.getTitle()}"> </h1>
+            <br/>
+        <span th:text="${oneMovie.getLongDescription()}"></span>
+            <br/>
+       <i th:text="${oneMovie.getYear()}"></i>
+       <strong th:text="${oneMovie.getAuthor()}"></strong>
+   </div>
+</body>
+</html>

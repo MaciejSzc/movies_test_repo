@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/admin/add" method="post" th:object="${movieForm}">
+        Tytuł: <input type="text" th:field="*{title}"> <br/>
+        Krótki opis: <input type="text" th:field="*{shortDescription}"> <br/>
+        Długi opis: <input type="text" th:field="*{longDescription}"> <br/>
+        Autor: <input type="text" th:field="*{author}"> <br/>
+        Rok: <input type="text" th:field="*{year}"> <br/>
+        Gatunek: <input type="text" th:field="*{type}"> <br/>
+
+        <br/><br/>
+
+        <input type="submit" value="Wyslij">
+    </form>
+</body>
+</html>
