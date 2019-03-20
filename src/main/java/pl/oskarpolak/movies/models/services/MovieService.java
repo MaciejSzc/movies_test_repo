@@ -15,6 +15,9 @@ public class MovieService {
     @Autowired
     MovieRepository movieRepository;
 
+    @Autowired
+    AuthorService authorService;
+
 
     public Iterable<MovieEntity> getAll(){
         return movieRepository.findAll();
@@ -22,8 +25,8 @@ public class MovieService {
 
     public void addMovie(MovieForm movieForm){
         MovieEntity movieEntity = new MovieEntity();
-        AuthorEntity authorEntity = new AuthorEntity();
-        authorEntity.setId(1); //todo
+        AuthorEntity authorEntity = authorService.findBySurname(movieForm.getAuthor());
+
 
         movieEntity.setAuthor(authorEntity);
         movieEntity.setLongDescription(movieForm.getLongDescription());

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h2 th:each="author : ${authors}"
+            th:text="${author.getName() + ': ' + author.getMovies().size()}"></h2>
+    </div>
+</body>
+</html>

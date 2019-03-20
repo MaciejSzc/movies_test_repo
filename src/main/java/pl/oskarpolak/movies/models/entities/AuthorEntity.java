@@ -3,11 +3,9 @@ package pl.oskarpolak.movies.models.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "author")
@@ -17,5 +15,8 @@ public class AuthorEntity {
     private String name;
     private String surname;
     private LocalDate birthday;
+
+    @OneToMany(mappedBy = "author", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY) //lazy i eager
+    List<MovieEntity> movies;
 }
 
