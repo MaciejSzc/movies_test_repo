@@ -2,6 +2,7 @@ package pl.oskarpolak.movies.models.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.oskarpolak.movies.models.entities.AuthorEntity;
 import pl.oskarpolak.movies.models.entities.MovieEntity;
 import pl.oskarpolak.movies.models.forms.MovieForm;
 import pl.oskarpolak.movies.models.repositories.MovieRepository;
@@ -21,7 +22,10 @@ public class MovieService {
 
     public void addMovie(MovieForm movieForm){
         MovieEntity movieEntity = new MovieEntity();
-        movieEntity.setAuthor(movieForm.getAuthor());
+        AuthorEntity authorEntity = new AuthorEntity();
+        authorEntity.setId(1); //todo
+
+        movieEntity.setAuthor(authorEntity);
         movieEntity.setLongDescription(movieForm.getLongDescription());
         movieEntity.setShortDescription(movieForm.getShortDescription());
         movieEntity.setType(movieForm.getType());
