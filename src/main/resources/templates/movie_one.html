@@ -12,6 +12,17 @@
             <br/>
        <i th:text="${oneMovie.getYear()}"></i>
        <strong th:text="${oneMovie.getAuthor().getBirthday()}"></strong>
+
+       <ul>
+           <li th:each="comment : ${oneMovie.getComments()}" th:text="${comment.getComment() + ' | ' + comment.getCreationTime()}"></li>
+       </ul>
+
+       <form th:action="'/comment/add/' + ${oneMovie.getId()}" method="post">
+           Treść: <input type="text" name="comment"> <br/>
+           <input type="submit" value="dodaj">
+       </form>
    </div>
+
+
 </body>
 </html>

@@ -4,6 +4,7 @@ package pl.oskarpolak.movies.models.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,4 +20,7 @@ public class MovieEntity {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private AuthorEntity author;
+
+    @OneToMany(mappedBy = "movie")
+    List<CommentEntity> comments;
 }
