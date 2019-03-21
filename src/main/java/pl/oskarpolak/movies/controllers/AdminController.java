@@ -22,8 +22,14 @@ public class AdminController {
     }
 
     @PostMapping("/admin/add")
-    public String movie(@ModelAttribute MovieForm movieForm){
-        movieService.addMovie(movieForm);
+    public String movie(@ModelAttribute MovieForm movieForm,
+                        Model model){
+        MovieService.MovieResponse movieResponse = movieService.addMovie(movieForm);
+        if(movieResponse != MovieService.MovieResponse.CREATED){
+            model.addAttribute("movieResponse", movieResponse);
+            return "movie_add";
+        }
+
         return "redirect:/";
     }
 }

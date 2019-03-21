@@ -2,6 +2,7 @@ package pl.oskarpolak.movies.models.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.oskarpolak.movies.models.entities.AuthorEntity;
 import pl.oskarpolak.movies.models.entities.MovieEntity;
 import pl.oskarpolak.movies.models.forms.MovieForm;
@@ -11,6 +12,10 @@ import java.util.Optional;
 
 @Service
 public class MovieService {
+    public enum MovieResponse {
+        CREATED, AUTHOR_NOT_EXIST, TITLE_ALREADY_EXIST;
+    }
+
 
     @Autowired
     MovieRepository movieRepository;
@@ -23,10 +28,19 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public void addMovie(MovieForm movieForm){
+
+    //@Transactional
+    public MovieResponse addMovie(MovieForm movieForm){
         MovieEntity movieEntity = new MovieEntity();
         AuthorEntity authorEntity = authorService.findBySurname(movieForm.getAuthor());
 
+        if(authorEntity == null){
+            return MovieResponse.AUTHOR_NOT_EXIST;
+        }
+
+        if (movieRepository.existsByTitle(movieForm.getTitle())) {
+            return MovieResponse.TITLE_ALREADY_EXIST;
+        }
 
         movieEntity.setAuthor(authorEntity);
         movieEntity.setLongDescription(movieForm.getLongDescription());
@@ -36,6 +50,7 @@ public class MovieService {
         movieEntity.setTitle(movieForm.getTitle());
 
         movieRepository.save(movieEntity);
+        return MovieResponse.CREATED;
     }
 
     public MovieEntity getOneMovie(int id) {

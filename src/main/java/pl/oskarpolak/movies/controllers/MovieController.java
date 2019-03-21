@@ -2,14 +2,11 @@ package pl.oskarpolak.movies.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import pl.oskarpolak.movies.models.forms.MovieForm;
 import pl.oskarpolak.movies.models.services.MovieService;
+import pl.oskarpolak.movies.models.services.UserSession;
 
 @Controller
 public class MovieController {
@@ -17,9 +14,14 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
+    @Autowired
+    UserSession userSession;
+
     @GetMapping("/")
     public String movie(Model model){
         model.addAttribute("movies", movieService.getAll());
+        model.addAttribute("userSession", userSession);
+
         return "movie_all";
     }
 

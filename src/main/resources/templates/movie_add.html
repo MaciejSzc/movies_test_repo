@@ -5,6 +5,12 @@
     <title>Title</title>
 </head>
 <body>
+
+    <th:block th:if="${movieResponse != null}" th:switch="${movieResponse}">
+        <h1 th:case="${movieResponse.TITLE_ALREADY_EXIST}" th:text="#{movie.title.already.exists}"></h1>
+        <h1 th:case="${movieResponse.AUTHOR_NOT_EXIST}" th:text="#{movie.author.not.exists}"></h1>
+    </th:block>
+
     <form action="/admin/add" method="post" th:object="${movieForm}">
         Tytuł: <input type="text" th:field="*{title}"> <br/>
         Krótki opis: <input type="text" th:field="*{shortDescription}"> <br/>
