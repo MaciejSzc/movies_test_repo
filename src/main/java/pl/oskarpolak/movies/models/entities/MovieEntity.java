@@ -2,6 +2,8 @@ package pl.oskarpolak.movies.models.entities;
 
 
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,5 +24,10 @@ public class MovieEntity {
     private AuthorEntity author;
 
     @OneToMany(mappedBy = "movie")
+    @OrderBy("creation_time DESC")
     List<CommentEntity> comments;
+
+    @OneToOne(mappedBy = "movie")
+    @NotFound(action = NotFoundAction.IGNORE)
+    VoteEntity vote;
 }

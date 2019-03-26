@@ -14,4 +14,7 @@ public interface UserRepository extends CrudRepository<UserEntity, Integer> {
 
     @Query(nativeQuery = true, value = "SELECT CASE WHEN COUNT(`id`) > 0 THEN 'true' ELSE 'false' END FROM `user` WHERE `username` = ?1")
     boolean isUsernameTaken(String username);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM `user` WHERE `username` = ?1")
+    UserEntity findUserByUsername(String username);
 }

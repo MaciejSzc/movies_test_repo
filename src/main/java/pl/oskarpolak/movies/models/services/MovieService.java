@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.oskarpolak.movies.models.entities.AuthorEntity;
 import pl.oskarpolak.movies.models.entities.MovieEntity;
+import pl.oskarpolak.movies.models.entities.VoteEntity;
 import pl.oskarpolak.movies.models.forms.MovieForm;
 import pl.oskarpolak.movies.models.repositories.MovieRepository;
+import pl.oskarpolak.movies.models.repositories.VoteRepository;
 
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.util.Optional;
 
 @Service
@@ -23,13 +26,18 @@ public class MovieService {
     @Autowired
     AuthorService authorService;
 
+    @Autowired
+    VoteRepository voteRepository;
+
+
+
 
     public Iterable<MovieEntity> getAll(){
         return movieRepository.findAll();
     }
 
 
-    //@Transactional
+    @Transactional
     public MovieResponse addMovie(MovieForm movieForm){
         MovieEntity movieEntity = new MovieEntity();
         AuthorEntity authorEntity = authorService.findBySurname(movieForm.getAuthor());
@@ -49,7 +57,13 @@ public class MovieService {
         movieEntity.setYear(movieForm.getYear());
         movieEntity.setTitle(movieForm.getTitle());
 
-        movieRepository.save(movieEntity);
+
+        MovieEntity movieEntitySaved = movieRepository.save(movieEntity);
+
+        VoteEntity voteEntity = new VoteEntity();
+        voteEntity.setMovie(movieEntitySaved);
+
+        voteRepository.save(voteEntity);
         return MovieResponse.CREATED;
     }
 
