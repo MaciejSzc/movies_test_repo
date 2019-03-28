@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.oskarpolak.movies.models.entities.UserEntity;
 import pl.oskarpolak.movies.models.forms.LoginForm;
 import pl.oskarpolak.movies.models.forms.RegisterForm;
@@ -61,6 +62,12 @@ public class UserService {
 
     public UserEntity findUserById(int id){
         return userRepository.findById(id).get();
+    }
+
+
+    @Transactional
+    public void softDeleteUserById(int userId){
+            userRepository.setIsDeletedAsTrueByUserId(userId);
     }
 
 //    public Optional<UserEntity> getLoginUser(){

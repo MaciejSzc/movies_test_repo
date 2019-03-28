@@ -15,4 +15,5 @@ public class UserEntity {
     private @JsonIgnore String password;
     private String email;
     private @Column(name = "is_admin") boolean isAdmin;
+    private @Column(name = "is_deleted") boolean isDeleted;
 }
